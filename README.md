@@ -1,8 +1,3 @@
-# DevHub-HTB-Walkthrough
-Hack The Box - DevHub Machine Walkthrough (Medium Linux, CVE-2026-23744, Chisel Tunneling, Jupyter, Root Privilege Escalation)
-📘 README.md – Fertiger Inhalt (kopieren & einfügen)
-markdown
-
 # DevHub – HTB Walkthrough (Medium Linux)
 
 **Maschine:** DevHub  
