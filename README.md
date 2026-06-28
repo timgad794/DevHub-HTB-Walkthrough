@@ -108,7 +108,7 @@ ssh -i root_key root@devhub.htb
 📌 9. Flags
 bash
 
-cat /root/root.txt
+cat /root/root.txt 
 cat /home/analyst/user.txt
 
 Root-Flag:
